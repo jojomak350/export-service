@@ -15,7 +15,7 @@ type PostRequest struct {
 func ExportHandler(c echo.Context) error {
 	var request PostRequest
 	if err := c.Bind(&request); err != nil {
-		panic(err)
+		core.Logger.Println(err)
 	}
 
 	//client := &http.Client{}

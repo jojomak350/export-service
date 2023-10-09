@@ -29,11 +29,11 @@ func NewUploader() {
 
 func (u *Uploader) cleanUp(file *os.File) {
 	if err := file.Close(); err != nil {
-		panic(err)
+		Logger.Println(err)
 	}
 
 	if err := os.Remove(file.Name()); err != nil {
-		panic(err)
+		Logger.Println(err)
 	}
 }
 
@@ -46,7 +46,7 @@ func (u *Uploader) Upload(file *os.File, path string) string {
 	})
 
 	if err != nil {
-		panic(err)
+		Logger.Println(err)
 	}
 
 	u.cleanUp(file)

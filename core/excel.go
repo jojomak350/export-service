@@ -27,7 +27,7 @@ func NewFile(path string) Excel {
 
 	defer func() {
 		if err := e.file.Close(); err != nil {
-			panic(err)
+			Logger.Println(err)
 		}
 	}()
 
@@ -53,7 +53,7 @@ func (e *Excel) setActiveSheet() {
 func (e *Excel) createSheet() {
 	index, err := e.file.NewSheet(e.sheetName)
 	if err != nil {
-		panic(err)
+		Logger.Println(err)
 	}
 
 	e.sheetIndex = index
@@ -62,7 +62,7 @@ func (e *Excel) createSheet() {
 func (e *Excel) appendCell(place string, value interface{}) {
 	err := e.file.SetCellValue(e.sheetName, place, value)
 	if err != nil {
-		panic(err)
+		Logger.Println(err)
 	}
 }
 
@@ -106,7 +106,7 @@ func (e *Excel) createFileBody(data [][]interface{}) {
 func (e *Excel) loadFile() *os.File {
 	f, err := os.Open(e.tempPath)
 	if err != nil {
-		panic(err)
+		Logger.Println(err)
 	}
 
 	return f
@@ -115,7 +115,7 @@ func (e *Excel) loadFile() *os.File {
 func (e *Excel) Save(client Uploader) string {
 	err := e.file.SaveAs(e.tempPath)
 	if err != nil {
-		panic(err)
+		Logger.Println(err)
 	}
 
 	return client.Upload(e.loadFile(), e.path)

@@ -19,6 +19,8 @@ func init() {
 		os.Mkdir(os.Getenv("TEMP_DIRECTORY"), os.ModePerm)
 	}
 
+	core.LoadLogger()
+
 	core.NewUploader()
 }
 
