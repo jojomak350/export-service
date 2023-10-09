@@ -16,6 +16,10 @@ func ExportHandler(c echo.Context) error {
 	var request PostRequest
 	if err := c.Bind(&request); err != nil {
 		core.Logger.Println(err)
+
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"error": err,
+		})
 	}
 
 	//client := &http.Client{}
