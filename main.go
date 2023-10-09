@@ -15,6 +15,10 @@ func init() {
 		panic(err)
 	}
 
+	if _, err := os.Stat(os.Getenv("TEMP_DIRECTORY")); os.IsNotExist(err) {
+		os.Mkdir(os.Getenv("TEMP_DIRECTORY"), os.ModePerm)
+	}
+
 	core.NewUploader()
 }
 
