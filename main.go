@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"net/http"
 	"os"
 )
 
@@ -25,9 +26,15 @@ func init() {
 }
 
 func main() {
-	e := echo.New()
+	app := echo.New()
 
-	e.POST("/export", handlers.ExportHandler)
+	app.GET("/", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, echo.Map{
+			"msg": "welcome",
+		})
+	})
 
-	e.Logger.Fatal(e.Start(fmt.Sprintf(":%v", os.Getenv("PORT"))))
+	app.POST("/export", handlers.ExportHandler)
+
+	core.Logger.Fatal(app.Start(fmt.Sprintf(":%v", os.Getenv("PORT"))))
 }
